@@ -70,12 +70,18 @@ void tfs_debug()
 	union tfs_block block;
 
 	disk_read(0,block.data);
-
+	//super block
+	
         // check signature
         if(block.super.signature  == TFS_MAGIC)
 		printf("      signature is valid\n");
 	else
 		printf("      signature is invalid\n");
+		
+		for(i=0; i<NUM_BLOCKS; i++)
+           if(block.bmap.block_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT)))
+		 b_in_use++ ;  
+        printf("      %d blocks in use \n", b_in_use);
 
 	disk_read(1,block.data);
 	for(i=0; i<NUM_BLOCKS; i++)
@@ -84,7 +90,8 @@ void tfs_debug()
         printf("      %d blocks in use \n", b_in_use); 
 
         // count inodes in use 
-	printf("%d",sizeof(block.bmap.inode_in_use) / sizeof(block.bmap.inode_in_use[0]));
+		//FIX WHAT THIS PRINTS AS
+	printf("%d inodes in use",sizeof(block.bmap.inode_in_use) / sizeof(block.bmap.inode_in_use[0]));
 
 
         
