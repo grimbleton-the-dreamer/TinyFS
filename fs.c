@@ -71,7 +71,7 @@ void tfs_debug()
 
 	disk_read(0,block.data);
 	//Get superblock
-	memcpy(&block.super, block.data,sizeof(struct tfs_superblock) );
+	//memcpy(&block.super, block.data,sizeof(struct tfs_superblock) );
 	printf("Superblock signature: 0x%x\n", block.super.signature);
 
         // check signature
