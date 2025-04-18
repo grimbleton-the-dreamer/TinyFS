@@ -84,7 +84,7 @@ void tfs_debug()
         printf("      %d blocks in use \n", b_in_use); 
 
         // count inodes in use 
-	printf("%d",sizeof(block.bmap.inode_in_use) / sizeof(block.bmap.inode_in_use[0]))
+	printf("%d",sizeof(block.bmap.inode_in_use) / sizeof(block.bmap.inode_in_use[0]));
 
 
         
