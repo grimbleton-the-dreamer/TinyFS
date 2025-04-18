@@ -66,9 +66,13 @@ void tfs_debug()
         int i;
         int b_in_use = 0;
 
+	
 	union tfs_block block;
 
 	disk_read(0,block.data);
+	//Get superblock
+	memcpy(&block.super, block.data,sizeof(struct tfs_superblock) );
+	printf("Superblock signature: 0x%x\n", block.super.signature);
 
         // check signature
         if(block.super.signature  == TFS_MAGIC)
