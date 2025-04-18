@@ -70,9 +70,6 @@ void tfs_debug()
 	union tfs_block block;
 
 	disk_read(0,block.data);
-	//Get superblock
-	//memcpy(&block.super, block.data,sizeof(struct tfs_superblock) );
-	printf("Superblock signature: 0x%x\n", block.super.signature);
 
         // check signature
         if(block.super.signature  == TFS_MAGIC)
@@ -87,7 +84,8 @@ void tfs_debug()
         printf("      %d blocks in use \n", b_in_use); 
 
         // count inodes in use 
-	
+	printf("%d",sizeof(block.bmap.inode_in_use) / sizeof(block.bmap.inode_in_use[0]))
+
 
         
 	// explore root directory
