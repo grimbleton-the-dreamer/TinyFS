@@ -100,11 +100,16 @@ void tfs_debug()
 			for(int j = 0; j < POINTERS_PER_INODE; j++){
 				//bad and wrong, figure out why5
 				if(j* DISK_BLOCK_SIZE < block.inode[i].size && block.inode[i].direct[j] != 0){
-					disk_read(block.inode[i].direct[j],store_inodes.data);
+					int inodeBlock = block.inode[i].direct[j];
+					if(inodeBlock >= 0 && inodeBlock <= 1023){
+						disk_read(block.inode[i].direct[j],store_inodes.data);
+					}
+					
 					//use file size to determine pointer validity
 				}
 				
 			}
+			//PRINT INODE INFO HERE
 			
 		}
 			
