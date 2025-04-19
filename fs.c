@@ -95,25 +95,57 @@ void tfs_debug()
 	
 	//if inode is active, get size and direct blocks?
 	//use something esle to bring in direcoteris
-	for(i=0; i<NUM_INODES; i++)
-        if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT))){
+	//Iterate through inodes
+	for(i=0; i<NUM_INODES; i++){
+		int num_direct_blocks = 0;
+		int inode_size = block.inode[i].size;
+		char fname[24] = "";
+		if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT))){
+			//iterate through inode pointers
+			
 			for(int j = 0; j < POINTERS_PER_INODE; j++){
-				//bad and wrong, figure out why5
-				if(j* DISK_BLOCK_SIZE < block.inode[i].size && block.inode[i].direct[j] != 0){
+				//use file size to determine pointer validity
+				if(j* DISK_BLOCK_SIZE < inode_size && block.inode[i].direct[j] != 0){
 					int inodeBlock = block.inode[i].direct[j];
 					if(inodeBlock >= 0 && inodeBlock <= 1023){
 						disk_read(block.inode[i].direct[j],store_inodes.data);
 					}
+					else{
+						continue;
+					}
+
+					//read each direntry at inode
+					//count num valid dirs
+					//looks for name of inode in entry and counts valid entries
+					for(int j = 0; j < NUM_DENTRIES_PER_BLOCK; j++){
+						if(store_inodes.dentry[j].valid == 1){
+
+							if(num_direct_blocks == 0){
+								memcpy(&fname,&store_inodes.dentry[j].fname, sizeof(fname));
+							}
+							
+							num_direct_blocks++;
+						}
+					}
 					
-					//use file size to determine pointer validity
 				}
+
 				
 			}
+
+			printf("%s inode %d", fname,inode_size);
+			printf("      size: %d\n", inode_size);
+			printf("      size: %d\n", num_direct_blocks);
 			//PRINT INODE INFO HERE
 			
 		}
+
+	}
+		
+		//Check if inode is in use
+        
 			
-		printf("      %d inodes in use \n", inode_in_use);
+
         // count inodes in use 
 		//FIX WHAT THIS PRINTS AS
 	
