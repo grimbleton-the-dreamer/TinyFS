@@ -98,11 +98,11 @@ void tfs_debug()
 	//Iterate through inodes
 	for(i=0; i<NUM_INODES; i++){
 		int num_direct_blocks = 0;
-		int inode_size = block.inode[i].size;
+		int inode_size = 0;
 		char fname[24] = "";
 		if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT))){
 			//iterate through inode pointers
-			
+			inode_size = block.inode[i].size;
 			for(int j = 0; j < POINTERS_PER_INODE; j++){
 				//use file size to determine pointer validity
 				if(j* DISK_BLOCK_SIZE < inode_size && block.inode[i].direct[j] != 0){
@@ -133,7 +133,7 @@ void tfs_debug()
 				
 			}
 
-			printf("%s inode %d", fname,inode_size);
+			printf("%s inode %d\n", fname,inode_size);
 			printf("      size: %d\n", inode_size);
 			printf("      size: %d\n", num_direct_blocks);
 			//PRINT INODE INFO HERE
