@@ -78,10 +78,7 @@ void tfs_debug()
 		printf("      signature is valid\n");
 	else
 		printf("      signature is invalid\n");
-		
-		
 
-	disk_read(1,block.data);
 	for(i=0; i<NUM_BLOCKS; i++)
            if(block.bmap.block_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT)))
 		 b_in_use++ ;  
@@ -93,7 +90,7 @@ void tfs_debug()
         printf("      %d inodes in use \n", inode_in_use);
         // count inodes in use 
 		//FIX WHAT THIS PRINTS AS
-	printf("%d inodes in use\n",inode_in_use);
+	
 
 
         
