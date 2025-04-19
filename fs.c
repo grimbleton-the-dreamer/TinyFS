@@ -133,9 +133,9 @@ void tfs_debug()
 				
 			}
 
-			printf("%s inode %d\n", fname,inode_size);
+			printf("%s inode %d\n", &fname,inode_size);
 			printf("      size: %d\n", inode_size);
-			printf("      size: %d\n", num_direct_blocks);
+			printf("      direct blocks: %d\n", num_direct_blocks);
 			//PRINT INODE INFO HERE
 			
 		}
