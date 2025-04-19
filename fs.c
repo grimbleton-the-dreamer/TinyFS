@@ -86,6 +86,7 @@ void tfs_debug()
         printf("      %d blocks in use \n", b_in_use); 
 	
 	for(i=0; i<NUM_INODES; i++)
+		block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT));
         if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT)))
 			inode_in_use++ ;  
         
