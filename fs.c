@@ -69,6 +69,7 @@ void tfs_debug()
 
 	
 	union tfs_block block;
+	union tfs_block store_inodes;
 
 	disk_read(0,block.data);
 	//super block
@@ -97,9 +98,10 @@ void tfs_debug()
 	for(i=0; i<NUM_INODES; i++)
         if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT))){
 			for(int j = 0; j < POINTERS_PER_INODE; j++){
-				if(block.inode[i].direct[j] != 0){
-					disk_read(block.inode[i].direct[j],block.data);
-					printf("inode dir pointer test: %d",block.dentry[j].inum);
+				//bad and wrong, figure out why5
+				if(j* DISK_BLOCK_SIZE < block.inode[i].size && block.inode[i].direct[j] != 0){
+					disk_read(block.inode[i].direct[j],store_inodes.data);
+					//use file size to determine pointer validity
 				}
 				
 			}
