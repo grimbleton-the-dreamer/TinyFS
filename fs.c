@@ -91,6 +91,17 @@ void tfs_debug()
 			inode_in_use++ ;  
         
 		printf("      %d inodes in use \n", inode_in_use);
+	
+	//if inode is active, get size and direct blocks?
+	for(i=0; i<NUM_INODES; i++)
+        if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT))){
+			for(int j = 0; j < POINTERS_PER_INODE; j++){
+				printf("inode dir pointer test: %d",block.inode[i].direct[j]);
+			}
+			
+		}
+			
+		printf("      %d inodes in use \n", inode_in_use);
         // count inodes in use 
 		//FIX WHAT THIS PRINTS AS
 	
