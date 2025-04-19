@@ -109,7 +109,8 @@ void tfs_debug()
 				if(j* DISK_BLOCK_SIZE < inode_size && block.inode[i].direct[j] != 0){
 					int inodeBlock = block.inode[i].direct[j];
 					if(inodeBlock >= 0 && inodeBlock <= 1023){
-						disk_read(block.inode[i].direct[j],store_inodes.data);
+						//disk_read(block.inode[i].direct[j],store_inodes.data);
+						num_direct_blocks++;
 					}
 					else{
 						continue;
@@ -118,19 +119,17 @@ void tfs_debug()
 					//read each direntry at inode
 					//count num valid dirs
 					//looks for name of inode in entry and counts valid entries
-					if(block.inode[i].type == 2){
-						for(int k = 0; k < NUM_DENTRIES_PER_BLOCK; k++){
-							if(store_inodes.dentry[j].valid == 1){
+					//This does not do what I want it to do
+					for(int k = 0; k < NUM_DENTRIES_PER_BLOCK; k++){
+						if(store_inodes.dentry[j].valid == 1){
 
-								if(num_direct_blocks == 0){
-									memcpy(&fname,&store_inodes.dentry[k].fname, sizeof(fname));
-								}
-								
-								num_direct_blocks++;
+							if(num_direct_blocks == 0){
+								memcpy(&fname,&store_inodes.dentry[k].fname, sizeof(fname));
 							}
+							
+							
 						}
 					}
-					
 					
 				}
 
