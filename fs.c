@@ -118,16 +118,19 @@ void tfs_debug()
 					//read each direntry at inode
 					//count num valid dirs
 					//looks for name of inode in entry and counts valid entries
-					for(int k = 0; k < NUM_DENTRIES_PER_BLOCK; k++){
-						if(store_inodes.dentry[j].valid == 1){
+					if(block.inode[i].type == 2){
+						for(int k = 0; k < NUM_DENTRIES_PER_BLOCK; k++){
+							if(store_inodes.dentry[j].valid == 1){
 
-							if(num_direct_blocks == 0){
-								memcpy(&fname,&store_inodes.dentry[k].fname, sizeof(fname));
+								if(num_direct_blocks == 0){
+									memcpy(&fname,&store_inodes.dentry[k].fname, sizeof(fname));
+								}
+								
+								num_direct_blocks++;
 							}
-							
-							num_direct_blocks++;
 						}
 					}
+					
 					
 				}
 
