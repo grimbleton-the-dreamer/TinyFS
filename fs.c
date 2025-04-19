@@ -96,11 +96,12 @@ void tfs_debug()
 	//if inode is active, get size and direct blocks?
 	//use something esle to bring in direcoteris
 	//Iterate through inodes
-	for(i=0; i<NUM_INODES; i++){
+	for(i=0; i< NUM_INODES; i++){
 		int num_direct_blocks = 0;
 		int inode_size = 0;
 		char fname[24] = "";
-		if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT))){
+		int inode_in_use = block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT);
+		if(inode_in_use){
 			//iterate through inode pointers
 			inode_size = block.inode[i].size;
 			for(int j = 0; j < POINTERS_PER_INODE; j++){
@@ -132,10 +133,12 @@ void tfs_debug()
 
 				
 			}
-
-			printf("%s inode %d\n", fname,inode_size);
-			printf("      size: %d\n", inode_size);
-			printf("      direct blocks: %d\n", num_direct_blocks);
+			if(inode_in_use){
+				printf("%s inode %d\n", fname,inode_size);
+				printf("      size: %d\n", inode_size);
+				printf("      direct blocks: %d\n", num_direct_blocks);
+			}
+			
 			//PRINT INODE INFO HERE
 			
 		}
