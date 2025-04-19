@@ -117,7 +117,7 @@ void tfs_debug()
 					//read each direntry at inode
 					//count num valid dirs
 					//looks for name of inode in entry and counts valid entries
-					for(int j = 0; j < NUM_DENTRIES_PER_BLOCK; j++){
+					for(int k = 0; j < NUM_DENTRIES_PER_BLOCK; j++){
 						if(store_inodes.dentry[j].valid == 1){
 
 							if(num_direct_blocks == 0){
@@ -133,7 +133,7 @@ void tfs_debug()
 				
 			}
 
-			printf("%s inode %d\n", &fname,inode_size);
+			printf("%s inode %d\n", fname,inode_size);
 			printf("      size: %d\n", inode_size);
 			printf("      direct blocks: %d\n", num_direct_blocks);
 			//PRINT INODE INFO HERE
