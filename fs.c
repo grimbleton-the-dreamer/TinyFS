@@ -100,7 +100,7 @@ void tfs_debug()
 		int num_direct_blocks = 0;
 		int inode_size = 0;
 		char fname[24] = "";
-		int inode_in_use = block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT);
+		int inode_in_use = block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT));
 		if(inode_in_use){
 			//iterate through inode pointers
 			inode_size = block.inode[i].size;
