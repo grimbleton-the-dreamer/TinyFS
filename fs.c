@@ -93,10 +93,15 @@ void tfs_debug()
 		printf("      %d inodes in use \n", inode_in_use);
 	
 	//if inode is active, get size and direct blocks?
+	//use something esle to bring in direcoteris
 	for(i=0; i<NUM_INODES; i++)
         if(block.bmap.inode_in_use[i/BITS_PER_UINT] & (1 <<(i%BITS_PER_UINT))){
 			for(int j = 0; j < POINTERS_PER_INODE; j++){
-				printf("inode dir pointer test: %d",block.inode[i].direct[j]);
+				if(block.inode[i].direct[j] != 0){
+					disk_read(block.inode[i].direct[j],block.data);
+					printf("inode dir pointer test: %d",block.dentry[j].inum);
+				}
+				
 			}
 			
 		}
